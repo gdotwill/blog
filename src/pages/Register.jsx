@@ -91,17 +91,19 @@ const Register = () => {
                 placeholder="Enter confirm password"
               />
             </div>
+            <button type="submit" disabled="" class="bg-primary text-black font-bold text-lg py-4 px-8 w-full rounded-lg my-6 disabled:opacity-70 disabled:cursor-not-allowed">Sign In</button>
             <button
               type="submit"
-              className="bg-primary text-white font-bold text-lg py-4 px-8 w-full rounded-lg mb-6 disabled:opacity-70 disabled:cursor-not-allowed"
+              onClick={handleSubmit}
             >
               Register
             </button>
             <p className="text-sm font-semibold text-[#5a7184]">
               You have an account?{" "}
-              <Link to="/login" className="text-primary">
+              {/* <Link to="/login" className="text-primary">
                 Login now
-              </Link>
+              </Link> */}
+              <button onClick={handleSubmit}>Login now</button>{" "}
             </p>
           </form>
         </div>
