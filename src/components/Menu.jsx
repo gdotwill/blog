@@ -1,6 +1,8 @@
-import axios from "axios";
+
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+
+import api from "../api/api";
 
 // Defining a functional component named Menu which takes a single prop named cat
 const Menu = ({ cat }) => {
@@ -12,7 +14,7 @@ const Menu = ({ cat }) => {
     // Defining an async function fetchData to fetch posts related to the category using axios
     const fetchData = async () => {
       try {
-        const res = await axios.get(`/posts/?cat=${cat}`);
+        const res = await api.get(`/posts/?cat=${cat}`);
         setPosts(res.data);
       } catch (err) {
         console.log(err);

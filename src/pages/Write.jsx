@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import moment from "moment";
 import Logo from "../images/blog.png";
 import { FaCamera } from "react-icons/fa";
+
+import api from "../api/api";
 
 const Write = () => {
   // Get the location state using the `useLocation` hook
@@ -29,7 +30,7 @@ const Write = () => {
       formData.append("file", file);
 
       // Send a POST request to upload the file
-      const res = await axios.post("/upload", formData);
+      const res = await api.post("/upload", formData);
 
       // Return the filename of the uploaded file
       return res.data;
@@ -49,13 +50,13 @@ const Write = () => {
       // Send a PUT request to update a post if the location state is defined (writing),
       // otherwise send a POST request to create a new post
       state
-        ? await axios.put(`/posts/${state.id}`, {
+        ? await api.put(`/posts/${state.id}`, {
             title,
             description: value,
             cat,
             img: file ? imgUrl : "",
           })
-        : await axios.post(`/posts/`, {
+        : await api.post(`/posts/`, {
             title,
             description: value,
             cat,

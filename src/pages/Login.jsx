@@ -62,6 +62,7 @@ const Login = () => {
               <input
                 type="text"
                 id="username"
+                name="username"
                 placeholder="Enter username"
                 onChange={handleChange}
                 className="placeholder:text-[#959ead] text-dark-hard mt-3 rounded-lg px-5 py-4 font-semibold block outline-none border border-[#c3cad9]"
@@ -79,6 +80,7 @@ const Login = () => {
                 type="password"
                 id="password"
                 placeholder="Enter password"
+                name="password"
                 className="placeholder:text-[#959ead] text-dark-hard mt-3 rounded-lg px-5 py-4 font-semibold block outline-none border border-[#c3cad9]"
 
               />

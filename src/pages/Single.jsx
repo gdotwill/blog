@@ -3,9 +3,10 @@ import EditImage from "../images/edit.png";
 import DeleteImage from "../images/delete.png";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Menu from "../components/Menu";
-import axios from "axios";
 import moment from "moment";
 import { AuthContext } from "../context/authContext";
+
+import api from "../api/api";
 
 const Single = () => {
   const [post, setPost] = useState({});
@@ -25,7 +26,7 @@ const Single = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(`/posts/${postId}`);
+        const res = await api.get(`/posts/${postId}`);
         setPost(res.data);
       } catch (err) {
         console.log(err);
@@ -37,7 +38,7 @@ const Single = () => {
   // Handler function for deleting a blog post.
   const handleDelete = async () => {
     try {
-      await axios.delete(`/posts/${postId}`);
+      await api.delete(`/posts/${postId}`);
       // Navigate to the home page after deleting the post.
       navigate("/");
     } catch (err) {

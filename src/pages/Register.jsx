@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
 import Logo from "../images/blog.png";
+
+import api from "../api/api";
 
 const Register = () => {
   const [inputs, setInputs] = useState({
@@ -25,7 +26,7 @@ const Register = () => {
     // function to handle form submit
     e.preventDefault(); // preventing the default form submission behavior
     try {
-      await axios.post("/auth/register", inputs); // making a post request to register the user using axios library
+      await api.post("/register", inputs); // making a post request to register the user using axios library
       navigate("/login"); // navigating to login page after successful registration
     } catch (err) {
       // handling errors if any
@@ -54,7 +55,7 @@ const Register = () => {
                 </label>
                 <input
                   type="text"
-                  id="name"
+                  name="username"
                   placeholder="Enter name"
                   className="placeholder:text-[#959ead] text-dark-hard mt-3 rounded-lg px-5 py-4 font-semibold block outline-none border border-[#c3cad9]"
                 />
@@ -69,6 +70,7 @@ const Register = () => {
                 <input
                   type="email"
                   id="email"
+                  name="email"
                   placeholder="Enter email"
                   className="placeholder:text-[#959ead] text-dark-hard mt-3 rounded-lg px-5 py-4 font-semibold block outline-none border border-[#c3cad9]"
                 />
@@ -83,6 +85,7 @@ const Register = () => {
                 <input
                   type="password"
                   id="password"
+                  name="password"
                   placeholder="Enter password"
                   className="placeholder:text-[#959ead] text-dark-hard mt-3 rounded-lg px-5 py-4 font-semibold block outline-none border border-[#c3cad9]"
                 />

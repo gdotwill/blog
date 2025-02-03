@@ -1,6 +1,7 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+
+import api from "../api/api";
 
 const Home = () => {
   // Declaring a state variable called posts and initializing it to an empty array
@@ -15,7 +16,7 @@ const Home = () => {
     const fetchData = async () => {
       try {
         // Making an HTTP GET request to the server to retrieve posts data based on the cat variable
-        const res = await axios.get(`/posts${cat}`);
+        const res = await api.get(`/posts${cat}`);
         // Updating the posts state variable with the retrieved data
         setPosts(res.data);
       } catch (err) {

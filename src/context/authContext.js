@@ -1,5 +1,7 @@
-import axios from "axios";
+
 import { createContext, useEffect, useState } from "react";
+
+import api from "../api/api";
 
 // Create a new context called AuthContext
 export const AuthContext = createContext();
@@ -13,13 +15,13 @@ export const AuthContextProvider = ({ children }) => {
 
   // Define a function called login that makes a POST request to the /auth/login endpoint with the given inputs and sets the currentUser state variable to the response data
   const login = async (inputs) => {
-    const res = await axios.post("/auth/login", inputs);
+    const res = await api.post("/auth/login", inputs);
     setCurrentUser(res.data);
   };
 
   // Define a function called logout that makes a POST request to the /auth/logout endpoint and sets the currentUser state variable to null
   const logout = async (inputs) => {
-    await axios.post("/auth/logout");
+    await api.post("/auth/logout");
     setCurrentUser(null);
   };
 
