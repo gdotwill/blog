@@ -1,15 +1,16 @@
 import React from "react";
-import Logo from "../images/logo.png";
+import Logo from "../images/blog.png";
 
 const Footer = () => {
   return (
     <footer>
       <span>
-        <img src={Logo} alt="logo" />
         <br />
-        Made with 🤍 by
-        <br />
-        <b>@santiagobedoa</b>
+        <div className="logo">
+          <a href="/">
+            <img src={Logo} alt="logo" />
+          </a>
+        </div>
       </span>
     </footer>
   );

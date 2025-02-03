@@ -1,6 +1,6 @@
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 @layer components {
   .editor-btn {
@@ -10,4 +10,28 @@
   .active-editor-btn {
     @apply text-slate-800 bg-slate-200;
   }
+}
+
+.bg-primary {
+  --tw-bg-opacity: 1;
+  background-color: rgb(21 101 216 / var(--tw-bg-opacity));
+}
+
+.text-white {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity, 1));
+}
+
+.image {
+  width: 100px;
+}
+
+.image:hover {
+  cursor: pointer;
+}
+
+.editor {
+  height: 300px;
+  border-radius: 10px;
+
 }

@@ -1,6 +1,9 @@
 import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/authContext";
+import "../style.scss";
+import "../index.css";
+import Logo from "../images/blog.png";
 
 // Define a functional component called Login
 const Login = () => {
@@ -38,49 +41,63 @@ const Login = () => {
 
   // Render the login form with input fields for username and password and a button to submit the form
   return (
-    <section className="container mx-auto px-5 py-10">
-        <div className="w-full max-w-sm mx-auto">
+    <div className="py-2">
+        <div className="logo">
+          <a href="/">
+            <img src={Logo} alt="logo" className="image" />
+          </a>
+        </div>
+        <div className="w-full max-w-sm mx-auto mt-4">
           <h1 className="font-roboto text-2xl font-bold text-center text-dark-hard mb-8">
             Login
           </h1>
-          <form oonChange={handleChange}>
-            <div className="flex flex-col mb-6 w-full">
+          <form>
+            <div className="flex flex-col mb-6 w-full mt-8">
               <label
-                htmlFor="email"
+                htmlFor="username"
                 className="text-[#5a7184] font-semibold block"
               >
-                Email
+                Username
               </label>
               <input
-                type="email"
-                id="email"
-                placeholder="Enter email"
+                type="text"
+                id="username"
+                placeholder="Enter username"
+                onChange={handleChange}
+                className="placeholder:text-[#959ead] text-dark-hard mt-3 rounded-lg px-5 py-4 font-semibold block outline-none border border-[#c3cad9]"
               />
             </div>
             <div className="flex flex-col mb-6 w-full">
               <label
                 htmlFor="password"
                 className="text-[#5a7184] font-semibold block"
+                onChange={handleChange}
               >
                 Password
               </label>
               <input
                 type="password"
                 id="password"
+                placeholder="Enter password"
+                className="placeholder:text-[#959ead] text-dark-hard mt-3 rounded-lg px-5 py-4 font-semibold block outline-none border border-[#c3cad9]"
+
               />
             </div>
-            <Link
+            {/* <Link
               to="/forget-password"
               className="text-sm font-semibold text-primary"
             >
               Forgot password?
-            </Link>
+            </Link> */}
+
             <button
               type="submit"
               className="bg-primary text-white font-bold text-lg py-4 px-8 w-full rounded-lg my-6 disabled:opacity-70 disabled:cursor-not-allowed"
+              onClick={handleSubmit}
             >
               Sign In
             </button>
+
             <p className="text-sm font-semibold text-[#5a7184]">
               Do not have an account?{" "}
               <Link to="/register" className="text-primary">
@@ -89,7 +106,7 @@ const Login = () => {
             </p>
           </form>
         </div>
-      </section>
+      </div>
   );
 };
 

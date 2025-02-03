@@ -363,13 +363,16 @@ $light-gray: #707070;
 
       .item {
         padding: 10px;
-        border: 1px solid lightgray;
+        border: 1px solid #e5e7eb;
         flex: 1;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         font-size: 12px;
         color: #555;
+        border-radius: 0.5rem;
+
+
 
         h1 {
           font-size: 20px;
@@ -417,3 +420,40 @@ $light-gray: #707070;
     }
   }
 }
+
+.border-\[\#c3cad9\] {
+  --tw-border-opacity: 1;
+  border-color: rgb(195 202 217 / var(--tw-border-opacity));
+}
+
+.border {
+  border-width: 1px;
+}
+.rounded-lg {
+  border-radius: 0.5rem;
+}
+.block {
+  display: block;
+}
+.mt-3 {
+  margin-top: 0.75rem;
+}
+
+.photo {
+  background-color: rgb(59 130 246 / var(--tw-text-opacity, 1));
+  border-radius: 9999px;
+  text-align: center;
+  padding: 10px;
+  justify-content: center;
+  margin: auto;
+
+
+
+  .icon {
+    color: white;
+  }
+      
+}
+
+
+
