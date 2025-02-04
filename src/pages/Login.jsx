@@ -46,11 +46,19 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await api.post('/auth/login', { username, password }, { withCredentials: true });
-      console.log('Access Token from Server:', response.data.token);
+      // const response = await api.post('/auth/login', { username, password }, { withCredentials: true });
+      // localStorage.setItem('token', response.data.token);
+      // console.log('Access Token from Server:', response.data.token);
+      
+      // navigate("/");
+      // console.log('Login success:', response.data);
+
+
+      const response = await api.post('/auth/login', { username, password });
       localStorage.setItem('token', response.data.token);
-      navigate("/");
-      console.log('Login success:', response.data);
+      navigate('/');
+
+
     } catch (error) {
       console.error('Login failed:', error.response?.data || error.message);
     }
@@ -81,7 +89,8 @@ const Login = () => {
                 id="username"
                 name="username"
                 placeholder="Enter username"
-                onChange={handleChange}
+                //onChange={handleChange}
+                onChange={(e) => setUsername(e.target.value)}
                 className="placeholder:text-[#959ead] text-dark-hard mt-3 rounded-lg px-5 py-4 font-semibold block outline-none border border-[#c3cad9]"
               />
             </div>
@@ -89,7 +98,7 @@ const Login = () => {
               <label
                 htmlFor="password"
                 className="text-[#5a7184] font-semibold block"
-                onChange={handleChange}
+                //onChange={handleChange}   
               >
                 Password
               </label>
@@ -98,6 +107,7 @@ const Login = () => {
                 id="password"
                 placeholder="Enter password"
                 name="password"
+                onChange={(e) => setPassword(e.target.value)}
                 className="placeholder:text-[#959ead] text-dark-hard mt-3 rounded-lg px-5 py-4 font-semibold block outline-none border border-[#c3cad9]"
 
               />
