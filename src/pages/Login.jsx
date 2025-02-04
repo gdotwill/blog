@@ -1,9 +1,11 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/authContext";
 import "../style.scss";
 import "../index.css";
 import Logo from "../images/blog.png";
+
+import api from "../api/api";
 
 // Define a functional component called Login
 const Login = () => {
@@ -13,12 +15,13 @@ const Login = () => {
     password: "",
   });
 
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
   const [err, setError] = useState(null);
 
-  // Use useNavigate hook to create a navigate function
   const navigate = useNavigate();
 
-  //useContext hook to get the login function from the AuthContext.
   const { login } = useContext(AuthContext);
 
   // Define handleChange function to update the input state variables when the user types into the input fields
@@ -27,15 +30,29 @@ const Login = () => {
   };
 
   // Define handleSubmit function to handle the form submission when the user clicks the submit button
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     // Post the user input to the "/auth/login" endpoint and navigate to the home page
+  //     await login(inputs);
+  //     navigate("/");
+  //   } catch (err) {
+  //     // If there is an error, set the error state variable to the error message
+  //     setError(err.response.data);
+  //   }
+  // };
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Post the user input to the "/auth/login" endpoint and navigate to the home page
-      await login(inputs);
+      const response = await api.post('/auth/login', { username, password }, { withCredentials: true });
+      console.log('Access Token from Server:', response.data.token);
+      localStorage.setItem('token', response.data.token);
       navigate("/");
-    } catch (err) {
-      // If there is an error, set the error state variable to the error message
-      setError(err.response.data);
+      console.log('Login success:', response.data);
+    } catch (error) {
+      console.error('Login failed:', error.response?.data || error.message);
     }
   };
 
@@ -51,7 +68,7 @@ const Login = () => {
           <h1 className="font-roboto text-2xl font-bold text-center text-dark-hard mb-8">
             Login
           </h1>
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="flex flex-col mb-6 w-full mt-8">
               <label
                 htmlFor="username"
@@ -95,7 +112,7 @@ const Login = () => {
             <button
               type="submit"
               className="bg-primary text-white font-bold text-lg py-4 px-8 w-full rounded-lg my-6 disabled:opacity-70 disabled:cursor-not-allowed"
-              onClick={handleSubmit}
+              
             >
               Sign In
             </button>

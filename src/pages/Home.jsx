@@ -43,7 +43,7 @@ const Home = () => {
           <div className="post" key={post.id}>
             <div className="post-img">
               {/* Rendering the post image */}
-              <img src={`../upload/${post.img}`} alt="post cover" />
+              {/* <img src={`../upload/${post.img}`} alt="post cover" /> */}
             </div>
             <div className="content">
               {/* Rendering a link to the post page */}

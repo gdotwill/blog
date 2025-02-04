@@ -57,6 +57,7 @@ const router = createBrowserRouter([
 
 // Define the App function that returns the RouterProvider component that provides the routing context to the entire app
 function App() {
+
   return (
     <div className="app">
       <div className="container">

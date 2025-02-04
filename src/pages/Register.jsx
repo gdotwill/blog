@@ -6,11 +6,16 @@ import api from "../api/api";
 
 const Register = () => {
   const [inputs, setInputs] = useState({
-    // setting initial state for inputs using useState hook
     username: "",
     email: "",
     password: "",
   });
+
+
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
 
   const [err, setError] = useState(null); // setting initial state for error using useState hook
 
@@ -22,15 +27,30 @@ const Register = () => {
     // using spread operator to spread previous state and update the current input
   };
 
+  // const handleSubmit = async (e) => {
+  //   // function to handle form submit
+  //   e.preventDefault(); // preventing the default form submission behavior
+  //   try {
+  //     await api.post("/register", inputs); // making a post request to register the user using axios library
+  //     navigate("/login"); // navigating to login page after successful registration
+  //   } catch (err) {
+  //     // handling errors if any
+  //     setError(err.response.data); // setting error message from response data
+  //   }
+  // };
+
   const handleSubmit = async (e) => {
-    // function to handle form submit
-    e.preventDefault(); // preventing the default form submission behavior
+    e.preventDefault();
     try {
-      await api.post("/register", inputs); // making a post request to register the user using axios library
-      navigate("/login"); // navigating to login page after successful registration
+      const response = await api.post('/auth/register', {
+        username,
+        email,
+        password,
+      });
+      localStorage.setItem('token', response.data.token);
+      navigate('/login');
     } catch (err) {
-      // handling errors if any
-      setError(err.response.data); // setting error message from response data
+      setError(err.response.data.message);
     }
   };
 
@@ -45,7 +65,7 @@ const Register = () => {
             <h1 className="font-roboto text-2xl font-bold text-center text-dark-hard mb-8">
               Sign Up
             </h1>
-            <form onChange={handleChange}>
+            <form onSubmit={handleSubmit}>
               <div className="flex flex-col mb-6 w-full">
                 <label
                   htmlFor="name"
@@ -57,6 +77,9 @@ const Register = () => {
                   type="text"
                   name="username"
                   placeholder="Enter name"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  // onChange={handleChange}
                   className="placeholder:text-[#959ead] text-dark-hard mt-3 rounded-lg px-5 py-4 font-semibold block outline-none border border-[#c3cad9]"
                 />
               </div>
@@ -72,6 +95,9 @@ const Register = () => {
                   id="email"
                   name="email"
                   placeholder="Enter email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  // onChange={handleChange}
                   className="placeholder:text-[#959ead] text-dark-hard mt-3 rounded-lg px-5 py-4 font-semibold block outline-none border border-[#c3cad9]"
                 />
               </div>
@@ -87,6 +113,9 @@ const Register = () => {
                   id="password"
                   name="password"
                   placeholder="Enter password"
+                  // onChange={handleChange}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   className="placeholder:text-[#959ead] text-dark-hard mt-3 rounded-lg px-5 py-4 font-semibold block outline-none border border-[#c3cad9]"
                 />
               </div>
@@ -95,7 +124,7 @@ const Register = () => {
                 type="submit" 
                 disabled="" 
                 class="bg-primary text-white font-bold text-lg py-4 px-8 w-full rounded-lg my-6 disabled:opacity-70 disabled:cursor-not-allowed"
-                onClick={handleSubmit}
+                
               > Sign Up</button>
 
               <p className="text-sm font-semibold text-[#5a7184]">
