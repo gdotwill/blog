@@ -16,25 +16,11 @@ const Write = () => {
   const [message, setMessage] = useState('');
   const [value, setValue] = useState(state?.description || "");
   const [file, setFile] = useState(null);
-  const [cat, setCat] = useState(state?.cat || "");
+  const [cat, setCat] = useState('');
+  const [image, setImage] = useState(null);
+  const [error, setError] = useState('');
 
   const navigate = useNavigate();
-
-  const upload = async () => {
-    try {
-      // Create a new FormData object and append the file to it
-      const formData = new FormData();
-      formData.append("file", file);
-
-      // Send a POST request to upload the file
-      const res = await axios.post("/upload", formData);
-
-      // Return the filename of the uploaded file
-      return res.data;
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -45,27 +31,49 @@ const Write = () => {
       return;
     }
 
-    const imgUrl = await upload();
+    if (!title || !description) {
+      setError('Title and description are required.');
+      return;
+    }
 
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('description', description);
+    formData.append('cat', cat);
+    if (image) {
+      formData.append('image', image);
+    }
+
+    formData.forEach((value, key) => {
+      console.log(`${key}: ${value}`);
+    });
+  
     try {
-      const response = await axios.post('http://localhost:3000/api/posts',
-        { title, description, cat, img: file ? imgUrl : "", },
+      const response = await axios.post('http://localhost:3000/api/posts', formData, 
         {
           headers: {
-            Authorization: `Bearer ${token}`,
+            'Content-Type': 'multipart/form-data',
+            'Authorization': `Bearer ${token}`,
+            
           },
         }
       );
 
-      console.log('RES', response)
-
-      setMessage('Blog created successfully!');
+      setMessage('Post created successfully!');
+      setError('');
+      console.log("DDDDDDD", response.data.blog);
       navigate('/');  // Redirect to dashboard or blog list
     } catch (error) {
       console.error('Error creating blog:', error);
       setMessage(error.response?.data?.message || 'Failed to create blog.');
+      console.error(error);
+      setError('Error creating post.');
+      console.log("NOOO")
     }
   };
+
+
+
 
 
   return (
@@ -75,7 +83,7 @@ const Write = () => {
           <img src={Logo} alt="logo" className="image"/>
         </a>
       </div>
-      <form className="add mt-3" onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} encType="multipart/form-data">
         <div className="content">
           <input
             type="text"
@@ -86,6 +94,7 @@ const Write = () => {
           />
 
           <textarea
+            placeholder="Description"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
@@ -168,13 +177,22 @@ const Write = () => {
             </div>
           </div> 
           <div className="photo rounded-full">
-            <input
+
+            {/* <input
               style={{ display: "none" }}
               type="file"
-              id="file"
+              id="image"
               name=""
               onChange={(e) => setFile(e.target.files[0])}
+            /> */}
+
+            <input 
+              type="file" 
+              id="image" 
+              name="image" 
+              onChange={(e) => setImage(e.target.files[0])}
             />
+
             <label className="file" htmlFor="file">
               <FaCamera className="icon" size={30} />
             </label>

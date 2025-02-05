@@ -32,7 +32,7 @@ const Menu = ({ cat }) => {
           <img src={`../upload/${post.img}`} alt="post cover" />
           <h2>{post.title}</h2>
           {/* Using Link component to navigate to the post */}
-          <Link className="link" to={`/post/${post.id}`}>
+          <Link className="link" to={`/posts/${post.id}`}>
             <button>Read More</button>
           </Link>
         </div>

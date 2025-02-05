@@ -63,18 +63,18 @@ const Single = () => {
           {post.userImg && <img src={post.userImg} alt="user" />}
           <div className="info">
             {/* Render the post author and date. */}
-            <span>{post.username}</span>
+            {/* <span>{post.username}</span> */}
             <p>Posted {moment(post.date).fromNow()}</p>
           </div>
           {/* Render the edit and delete buttons if the current user is the author of the post. */}
-          {currentUser.username === post.username && (
+          {/* {currentUser.username === post.username && (
             <div className="edit">
               <Link to={`/write?edit=2`} state={post}>
                 <img src={EditImage} alt="edit" />
               </Link>
               <img onClick={handleDelete} src={DeleteImage} alt="delete" />
             </div>
-          )}
+          )} */}
         </div>
         {/* Render the post title and description. */}
         <h1>{post.title}</h1>
