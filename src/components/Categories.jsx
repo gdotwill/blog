@@ -4,11 +4,8 @@ import { Link } from "react-router-dom";
 
 const Categories = () => {
   return (
-    <div>
-        <h1 className="font-roboto text-sm text-center font-bold text-dark-soft md:text-xl lg:text-xl xl:text-xl lg:text-left lg:max-w-[540px]">
-            Latest articles
-        </h1>
-        <div className="flex mt-1 flex-col lg:flex-row lg:items-center lg:flex-nowrap lg:gap-x-4 lg:mt-1">
+    <div className='container mx-auto'>
+        <div className="flex mt-5 flex-col lg:flex-row lg:items-center lg:flex-nowrap lg:gap-x-4 lg:mt-10">
             <div className="flex mt-4 flex-col lg:flex-row lg:items-start lg:flex-nowrap lg:gap-x-4 lg:mt-1">
                 <ul className="flex flex-wrap gap-x-2.5 gap-y-2.5 mt-3 lg:text-sm xl:text-base">
                     <Link 

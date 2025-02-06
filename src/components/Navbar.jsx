@@ -37,8 +37,8 @@ const Navbar = () => {
             Authorization: `Bearer ${token}`,
           },
         });
-        console.log("REEEEE", response)
-        console.log("TTT", token)
+        // console.log("REEEEE", response)
+        // console.log("TTT", token)
 
         setUser(response.data.user);
 
