@@ -137,7 +137,7 @@ const Single = () => {
         </p>
       </div>
       {/* Show related categories. */}
-      <Menu cat={post.cat} />
+      <Menu category={post.category} />
     </div>
   );
 };

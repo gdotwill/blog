@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import api from "../api/api";
 
 // Defining a functional component named Menu which takes a single prop named cat
-const Menu = ({ cat }) => {
+const Menu = ({ category }) => {
   // Initializing posts state with an empty array using useState hook
   const [posts, setPosts] = useState([]);
 
@@ -14,7 +14,7 @@ const Menu = ({ cat }) => {
     // Defining an async function fetchData to fetch posts related to the category using axios
     const fetchData = async () => {
       try {
-        const res = await api.get(`/posts/?cat=${cat}`);
+        const res = await api.get(`/posts/?cat=${category}`);
         setPosts(res.data);
       } catch (err) {
         console.log(err);
@@ -22,7 +22,7 @@ const Menu = ({ cat }) => {
     };
     // Calling fetchData function to fetch data when component is mounted or when category is changed
     fetchData();
-  }, [cat]);
+  }, [category]);
 
   return (
     <div className="menu">

@@ -17,7 +17,6 @@ const Layout = () => {
     <>
       <Navbar />
       <Hero />
-      <Categories />
       <Outlet />
       <Footer />
     </>
