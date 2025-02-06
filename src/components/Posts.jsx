@@ -6,8 +6,15 @@ import { Link, useLocation } from "react-router-dom";
 const Posts = ({ posts}) => {
   return (
     <div>
-        <section className='blog'>
-          <div className='container grid3'>
+        <section className='container blog'>
+          {
+            posts.length < 1 && (
+              <div className='mt-16 text-center'>
+                <h1 className='text-3xl'>Loading posts...</h1>
+              </div>     
+            )
+          }
+          <div className='grid3 mt-8'>
             {posts.map((post) => (
               <div className='box boxItems' key={post.id}>
                 <div className='img'>
