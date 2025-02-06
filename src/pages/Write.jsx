@@ -7,6 +7,8 @@ import moment from "moment";
 import Logo from "../images/blog.png";
 import { FaCamera } from "react-icons/fa";
 
+import api from "../api/api";
+
 const Write = () => {
   const state = useLocation().state;
 
@@ -19,6 +21,7 @@ const Write = () => {
   const [category, setCat] = useState('');
   const [image, setImage] = useState(null);
   const [error, setError] = useState('');
+  
 
   const navigate = useNavigate();
 
@@ -49,19 +52,17 @@ const Write = () => {
     });
   
     try {
-      const response = await axios.post('http://localhost:3000/api/posts', formData, 
+      const response = await api.post('/posts', formData, 
         {
           headers: {
             'Content-Type': 'multipart/form-data',
-            'Authorization': `Bearer ${token}`,
-            
+            'Authorization': `Bearer ${token}`,    
           },
         }
       );
 
       setMessage('Post created successfully!');
       setError('');
-      console.log("DDDDDDD", response.data.blog);
       navigate('/');  // Redirect to dashboard or blog list
     } catch (error) {
       console.error('Error creating blog:', error);
@@ -71,10 +72,6 @@ const Write = () => {
       console.log("NOOO")
     }
   };
-
-
-
-
 
   return (
     <form onSubmit={handleSubmit} encType="multipart/form-data" className="py-2">
@@ -103,68 +100,64 @@ const Write = () => {
 
         </div>
         <div className="menu">
-        <div className="item mt-3">
-            <h1><strong>Category</strong></h1>
+          <div className="item mt-3">
+              <h1><strong>Category</strong></h1>
 
-            <div className="cat mt-3">
+              <div className="cat mt-3">
+                <input
+                  type="radio"
+                  checked={category === "Art"}
+                  name="cat"
+                  value="art"
+                  id="art"
+                  onChange={(e) => setCat(e.target.value)}   
+                />
+                <label htmlFor="art"> Art</label>
+              </div>
+
+              <div className="cat  mt-3">
+                <input
+                  type="radio"
+                  checked={category === "Science"}
+                  name="cat"
+                  value="science"
+                  id="science"
+                  onChange={(e) => setCat(e.target.value)}
+                />
+                <label htmlFor="science"> Science</label>
+              </div>
+
+              <div className="cat mt-3">
+                <input
+                  type="radio"
+                  checked={category === "Food"}
+                  name="cat"
+                  value="food"
+                  id="food"
+                  onChange={(e) => setCat(e.target.value)}
+                />
+                <label htmlFor="food"> Food</label>
+              </div>
+            </div>
+            <div className="photo rounded-full">
               <input
-                type="radio"
-                checked={category === "Art"}
-                name="cat"
-                value="art"
-                id="art"
-                onChange={(e) => setCat(e.target.value)}   
+                style={{ display: "none" }}
+                type="file"
+                id="file"
+                name=""
+                onChange={(e) => setImage(e.target.files[0])}
               />
-              <label htmlFor="art"> Art</label>
+              <label className="file" htmlFor="file">
+                <FaCamera className="icon" size={30} />
+              </label>
             </div>
 
-            <div className="cat  mt-3">
-              <input
-                type="radio"
-                checked={category === "Science"}
-                name="cat"
-                value="science"
-                id="science"
-                onChange={(e) => setCat(e.target.value)}
-              />
-              <label htmlFor="science"> Science</label>
-            </div>
-
-            <div className="cat mt-3">
-              <input
-                type="radio"
-                checked={category === "Food"}
-                name="cat"
-                value="food"
-                id="food"
-                onChange={(e) => setCat(e.target.value)}
-              />
-              <label htmlFor="food"> Food</label>
-            </div>
+            <button 
+              type="submit"
+              className="mt-5 lg:mt-0 border-2 border-blue-500 px-6 py-2 rounded-full text-blue-500 font-semibold hover:bg-blue-500 hover:text-white transition-all duration-300" 
+            > Publish
+            </button>
           </div>
-          <div className="photo rounded-full">
-            <input
-              style={{ display: "none" }}
-              type="file"
-              id="file"
-              name=""
-              onChange={(e) => setImage(e.target.files[0])}
-            />
-            <label className="file" htmlFor="file">
-              <FaCamera className="icon" size={30} />
-            </label>
-          </div>
-
-          <button 
-            type="submit"
-            className="mt-5 lg:mt-0 border-2 border-blue-500 px-6 py-2 rounded-full text-blue-500 font-semibold hover:bg-blue-500 hover:text-white transition-all duration-300" 
-          > Publish
-          </button>
-        
-        </div>
-
-      
-
       </div>  
     </form>
   );

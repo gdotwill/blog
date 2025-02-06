@@ -53,28 +53,22 @@ const Write = () => {
         {
           headers: {
             'Content-Type': 'multipart/form-data',
-            'Authorization': `Bearer ${token}`,
-            
+            'Authorization': `Bearer ${token}`,  
           },
         }
       );
 
       setMessage('Post created successfully!');
       setError('');
-      console.log("DDDDDDD", response.data.blog);
+      // console.log("DDDDDDD", response.data.blog);
       navigate('/');  // Redirect to dashboard or blog list
     } catch (error) {
       console.error('Error creating blog:', error);
       setMessage(error.response?.data?.message || 'Failed to create blog.');
       console.error(error);
       setError('Error creating post.');
-      console.log("NOOO")
     }
   };
-
-
-
-
 
   return (
     <div className="py-2">
@@ -98,7 +92,6 @@ const Write = () => {
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
-
         </div>
         <div className="menu">
           <div className="item mt-3">

@@ -32,7 +32,7 @@ const Navbar = () => {
       }
 
       try {
-        const response = await axios.get('http://localhost:3000/api/user', {
+        const response = await api.get('/user', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
