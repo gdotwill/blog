@@ -44,10 +44,9 @@ $light-gray: #707070;
         width: 200px;
         gap: 20px;
 
-        input {
+        textarea {
           padding: 10px;
-          border: none;
-          border-bottom: 1px solid gray;
+          border: 1px solid lightgray;
         }
 
         button {
@@ -454,6 +453,7 @@ $light-gray: #707070;
   }
       
 }
+
 
 
 

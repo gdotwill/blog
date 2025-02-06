@@ -77,13 +77,13 @@ const Write = () => {
 
 
   return (
-    <div className="py-2">
+    <form onSubmit={handleSubmit} encType="multipart/form-data" className="py-2">
       <div className="logo">
         <a href="/">
           <img src={Logo} alt="logo" className="image"/>
         </a>
       </div>
-      <form onSubmit={handleSubmit} encType="multipart/form-data">
+      <div className="add mt-3">
         <div className="content">
           <input
             type="text"
@@ -97,11 +97,13 @@ const Write = () => {
             placeholder="Description"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
+            className="placeholder:text-[#959ead] text-dark-hard mt-3 rounded-lg px-5 py-4 font-semibold block outline-none border border-[#c3cad9]"
+            rows="10"
           />
 
         </div>
         <div className="menu">
-          <div className="item mt-3">
+        <div className="item mt-3">
             <h1><strong>Category</strong></h1>
 
             <div className="cat mt-3">
@@ -131,7 +133,7 @@ const Write = () => {
             <div className="cat mt-3">
               <input
                 type="radio"
-                checked={category === "food"}
+                checked={category === "Food"}
                 name="cat"
                 value="food"
                 id="food"
@@ -139,24 +141,15 @@ const Write = () => {
               />
               <label htmlFor="food"> Food</label>
             </div>
-          </div> 
+          </div>
           <div className="photo rounded-full">
-
-            {/* <input
+            <input
               style={{ display: "none" }}
               type="file"
-              id="image"
+              id="file"
               name=""
-              onChange={(e) => setFile(e.target.files[0])}
-            /> */}
-
-            <input 
-              type="file" 
-              id="image" 
-              name="image" 
               onChange={(e) => setImage(e.target.files[0])}
             />
-
             <label className="file" htmlFor="file">
               <FaCamera className="icon" size={30} />
             </label>
@@ -169,9 +162,11 @@ const Write = () => {
           </button>
         
         </div>
-      </form> 
-      {message && <p>{message}</p>} 
-    </div>
+
+      
+
+      </div>  
+    </form>
   );
 };
 

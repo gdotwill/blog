@@ -41,6 +41,11 @@
 }
 .blog .boxItems {
   transition: 0.5s;
+  transition: 0.5s;
+  border: 1px solid #e6e6e6;
+  border-radius: 12px;
+  padding: 10px;
+  background: #fff;
 }
 .blog .boxItems:hover {
   box-shadow: 0 2px 4px rgb(0 0 0 / 8%);
@@ -127,6 +132,11 @@ footer .icon {
 }
 .link {
   color: #000;
+}
+
+textarea {
+  border: 1px solid lightgray;
+  border-radius: 0.5rem;
 }
 
 

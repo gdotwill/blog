@@ -9,7 +9,7 @@ const Posts = ({ posts}) => {
         <section className='blog'>
           <div className='container grid3'>
             {posts.map((post) => (
-              <div className='box boxposts' key={post.id}>
+              <div className='box boxItems' key={post.id}>
                 <div className='img'>
                   <img src={`http://localhost:3000${post.img}`} alt='' />
                 </div>

@@ -103,7 +103,7 @@ const Write = () => {
             <div className="cat mt-3">
               <input
                 type="radio"
-                checked={cat === "Art"}
+                checked={category === "Art"}
                 name="cat"
                 value="art"
                 id="art"
@@ -115,7 +115,7 @@ const Write = () => {
             <div className="cat  mt-3">
               <input
                 type="radio"
-                checked={cat === "Science"}
+                checked={category === "Science"}
                 name="cat"
                 value="science"
                 id="science"
@@ -127,7 +127,7 @@ const Write = () => {
             <div className="cat mt-3">
               <input
                 type="radio"
-                checked={cat === "Food"}
+                checked={category === "Food"}
                 name="cat"
                 value="food"
                 id="food"

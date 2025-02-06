@@ -63,7 +63,7 @@ const Navbar = () => {
           </a>
         </div>
         {isLoggedIn && (
-          <div className="flex"> Welcome,  <strong className="ml-2 text-blue-500"><h1> {user?.username}</h1></strong> </div>
+          <div className="flex text-lg"> Welcome,  <strong className="ml-2 text-blue-500"><h1> {user?.username}</h1></strong> </div>
         )}
         <div className="links">
           {isLoggedIn ? (
