@@ -3,7 +3,7 @@ import React from "react";
 import { images } from "../constants";
 import Search from "./Search";
 
-const Hero = () => {
+const Hero = ({ searchTerm, handleSearchChange, handleSearchButtonClick, setSearchTerm }) => {
   return (
     <section className="container mx-auto flex flex-col lg:flex-row">
         <div className="mt-10 lg:w-1/2">
@@ -12,7 +12,13 @@ const Hero = () => {
           </h1>    
         </div>
         <div className="mt-10 lg:w-1/2">
-          <Search className="mt-10 lg:mt-3 xl:mt-8" />
+          <Search 
+            searchTerm={searchTerm} 
+            handleSearchChange={handleSearchChange}
+            handleSearchButtonClick={handleSearchButtonClick}
+            setSearchTerm={setSearchTerm}
+            className="mt-10 lg:mt-3 xl:mt-8" 
+          />
         </div>
     </section>
   );

@@ -16,7 +16,6 @@ const Layout = () => {
   return (
     <>
       <Navbar />
-      <Hero />
       <Outlet />
       <Footer />
     </>

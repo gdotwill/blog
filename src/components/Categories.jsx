@@ -24,18 +24,15 @@ const Categories = ({ selectedCategory, setSelectedCategory }) => {
                                     hover:bg-blue-500
                                     hover:text-white 
                                     transition-all duration-300
-                                    backgroundColor: ${selectedCategory === category ? '#4CAF50' : '#f0f0f0'},
-                                    color: ${selectedCategory === category ? 'white' : 'black'},
                                     `}
 
-                                    // style={{
-                                    //   padding: '10px 20px',
-                                    //   border: '1px solid #ccc',
-                                    //   borderRadius: '5px',
-                                    //   backgroundColor: selectedCategory === category ? '#4CAF50' : '#f0f0f0',
-                                    //   color: selectedCategory === category ? 'white' : 'black',
-                                    //   cursor: 'pointer',
-                                    // }}
+                                    style={{
+                        
+                                      backgroundColor: selectedCategory === category ? 'rgb(59 130 246 / var(--tw-bg-opacity, 1))' : '#fff',
+                                      color: selectedCategory === category ? 'white' : 'rgb(59 130 246 / var(--tw-bg-opacity, 1))',
+                                      cursor: 'pointer',
+                                    }}
+
                                     onClick={() => setSelectedCategory(category)}
                                 
                                 >
