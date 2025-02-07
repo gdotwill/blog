@@ -28,11 +28,11 @@ const Write = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    const token = localStorage.getItem('token');
-    if (!token) {
-      setMessage('You must be logged in to post a blog.');
-      return;
-    }
+    // const token = localStorage.getItem('token');
+    // if (!token) {
+    //   setMessage('You must be logged in to post a blog.');
+    //   return;
+    // }
 
     if (!title || !description) {
       setError('Title and description are required.');
@@ -54,9 +54,11 @@ const Write = () => {
     try {
       const response = await api.post('/posts', formData, 
         {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-            'Authorization': `Bearer ${token}`,    
+          headers: {  
+            // 'Authorization': `Bearer ${token}`, 
+            'Content-Type': 'multipart/form-data', 
+            // 'Content-Type': 'application/json',
+              
           },
         }
       );
@@ -74,7 +76,7 @@ const Write = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} encType="multipart/form-data" className="py-2">
+    <form onSubmit={handleSubmit} className="py-2">
       <div className="logo">
         <a href="/">
           <img src={Logo} alt="logo" className="image"/>
@@ -102,7 +104,6 @@ const Write = () => {
         <div className="menu">
           <div className="item mt-3">
               <h1><strong>Category</strong></h1>
-
               <div className="cat mt-3">
                 <input
                   type="radio"
@@ -141,10 +142,11 @@ const Write = () => {
             </div>
             <div className="photo rounded-full">
               <input
-                style={{ display: "none" }}
+            
                 type="file"
                 id="file"
                 name=""
+                accept="image/*"
                 onChange={(e) => setImage(e.target.files[0])}
               />
               <label className="file" htmlFor="file">

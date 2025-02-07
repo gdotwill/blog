@@ -19,7 +19,7 @@ const Posts = ({ posts}) => {
               <div className='box boxItems' key={post.id}>
                 <div className='img'>
                   {/* <img src={`http://localhost:3000${post.img}`} alt='' /> */}
-                  <img src={`https://blog-backend-seven-rust.vercel.app${post.img}`} alt='' />
+                  <img src={post.img} alt='' />
                 </div>
                 <div className='details'>
                   <div className='tag'>
