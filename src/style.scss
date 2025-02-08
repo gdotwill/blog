@@ -78,6 +78,8 @@ $light-gray: #707070;
         display: flex;
         align-items: center;
         justify-content: space-between;
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 30px;
 
         .logo {
           img {
@@ -452,6 +454,12 @@ $light-gray: #707070;
     color: white;
   }
       
+}
+
+
+.login-wrapper {
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 30px
 }
 
 

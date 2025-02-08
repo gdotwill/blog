@@ -7,6 +7,7 @@ import Logo from "../images/blog.png";
 
 import api from "../api/api";
 
+
 // Define a functional component called Login
 const Login = () => {
   // Use useState hook to create state variables for inputs and errors
@@ -15,10 +16,15 @@ const Login = () => {
     password: "",
   });
 
+  const [error, setError] = useState({}); 
+
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const [err, setError] = useState(null);
+  const [message, setMessage] = useState('');
+
+  const [loginError, setLoginError] = useState(''); // Track login error (invalid credentials)
+
 
   const navigate = useNavigate();
 
@@ -27,6 +33,26 @@ const Login = () => {
   // Define handleChange function to update the input state variables when the user types into the input fields
   const handleChange = (e) => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const validate = () => {
+    let validationErrors = {};
+
+    // Check if email is empty or invalid
+    // Check if password is empty or too short
+    if (!username.trim()) {
+      validationErrors.username = 'Username is required';
+    } 
+
+    // Check if password is empty or too short
+    if (!password.trim()) {
+      validationErrors.password = 'Password is required';
+    } else if (password.length < 1) {
+      validationErrors.password = 'Password must be at least 1 character';
+    }
+
+    setError(validationErrors);
+    return Object.keys(validationErrors).length === 0; // If no errors, return true
   };
 
   // Define handleSubmit function to handle the form submission when the user clicks the submit button
@@ -53,13 +79,26 @@ const Login = () => {
       // navigate("/");
       // console.log('Login success:', response.data);
 
+      // if (!validate()) {
+      //   return; // If validation fails, do not submit the form
+      // }
+      
 
       const response = await api.post('/auth/login', { username, password });
       localStorage.setItem('token', response.data.token);
+
+      if (response.data.success) {
+        alert('Login successful');
+        // Redirect user to another page after successful login, if necessary
+      } else {
+        setLoginError('Invalid username or password'); // Set error message if credentials don't match
+      }
+
       navigate('/');
 
 
     } catch (error) {
+      setLoginError('Invalid username or password, please try again.');
       console.error('Login failed:', error.response?.data || error.message);
     }
   };
@@ -67,17 +106,17 @@ const Login = () => {
   // Render the login form with input fields for username and password and a button to submit the form
   return (
     <div className="py-2">
-        <div className="logo">
+        <div className="logo login-wrapper">
           <a href="/">
             <img src={Logo} alt="logo" className="image" />
           </a>
         </div>
-        <div className="w-full max-w-sm mx-auto mt-4">
+        <div className="w-full max-w-sm mx-auto mt-14">
           <h1 className="font-roboto text-2xl font-bold text-center text-dark-hard mb-8">
             Login
           </h1>
           <form onSubmit={handleSubmit}>
-            <div className="flex flex-col mb-6 w-full mt-8">
+            <div className="flex flex-col mb-6 w-full mt-14">
               <label
                 htmlFor="username"
                 className="text-[#5a7184] font-semibold block"
@@ -93,6 +132,8 @@ const Login = () => {
                 onChange={(e) => setUsername(e.target.value)}
                 className="placeholder:text-[#959ead] text-dark-hard mt-3 rounded-lg px-5 py-4 font-semibold block outline-none border border-[#c3cad9]"
               />
+              {error.username && <span style={{ color: 'red' }}>{error.username}</span>} {/* Display image error */}
+
             </div>
             <div className="flex flex-col mb-6 w-full">
               <label
@@ -109,8 +150,9 @@ const Login = () => {
                 name="password"
                 onChange={(e) => setPassword(e.target.value)}
                 className="placeholder:text-[#959ead] text-dark-hard mt-3 rounded-lg px-5 py-4 font-semibold block outline-none border border-[#c3cad9]"
-
               />
+              {error.password && <span style={{ color: 'red' }}>{error.password}</span>} {/* Display image error */}
+
             </div>
             {/* <Link
               to="/forget-password"
@@ -118,6 +160,9 @@ const Login = () => {
             >
               Forgot password?
             </Link> */}
+
+            {/* Show login error message if credentials do not match */}
+            {loginError && <span style={{ color: 'red', display: 'block' }}>{loginError}</span>}
 
             <button
               type="submit"
@@ -134,7 +179,8 @@ const Login = () => {
               </Link>
             </p>
           </form>
-        </div>
+          {message && <p>{message}</p>} 
+        </div> 
       </div>
   );
 };
