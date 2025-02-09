@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 const Categories = ({ selectedCategory, setSelectedCategory }) => {
 
@@ -38,10 +38,8 @@ const Categories = ({ selectedCategory, setSelectedCategory }) => {
                                 >
                                     <h6>{category}</h6>
                                 </button>
-
                             ))
-                        }
-                        
+                        }        
                     </ul>   
                 </div>
             </div>

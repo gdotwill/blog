@@ -73,18 +73,6 @@ const Login = () => {
     setLoading(true);
 
     try {
-      // const response = await api.post('/auth/login', { username, password }, { withCredentials: true });
-      // localStorage.setItem('token', response.data.token);
-      // console.log('Access Token from Server:', response.data.token);
-      
-      // navigate("/");
-      // console.log('Login success:', response.data);
-
-      // if (!validate()) {
-      //   return; // If validation fails, do not submit the form
-      // }
-      
-
       const response = await api.post('/auth/login', { username, password });
       localStorage.setItem('token', response.data.token);
 
@@ -96,7 +84,6 @@ const Login = () => {
       }
 
       navigate('/');
-
 
     } catch (error) {
       setLoginError('Invalid username or password, please try again.');
@@ -160,12 +147,10 @@ const Login = () => {
 
             {loading ? (
                 <div className="loader"></div>
-              ) : (
-                
+              ) : (      
                 <button
               type="submit"
-              className="bg-primary text-white font-bold text-lg py-4 px-8 w-full rounded-lg my-6 disabled:opacity-70 disabled:cursor-not-allowed"
-              
+              className="bg-primary text-white font-bold text-lg py-4 px-8 w-full rounded-lg my-6 disabled:opacity-70 disabled:cursor-not-allowed"  
             >
               Sign In
             </button>

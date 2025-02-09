@@ -1,7 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
-import { AiOutlineTags, AiOutlineClockCircle, AiOutlineComment, AiOutlineShareAlt } from "react-icons/ai"
-
 
 import api from "../api/api";
 import Categories from "../components/Categories";
@@ -13,14 +10,13 @@ import Hero from "../components/Hero";
 const Home = () => {
   const [posts, setPosts] = useState([]);
 
-  const [filteredPosts, setFilteredPosts] = useState([]); // Posts after filtering
+  const [filteredPosts, setFilteredPosts] = useState([]); 
 
   const [selectedCategory, setSelectedCategory] = useState('All');
 
-  const [searchTerm, setSearchTerm] = useState(''); // New state to store the search term
+  const [searchTerm, setSearchTerm] = useState(''); 
 
-  const [loading, setLoading] = useState(false); // Loading state
-
+  const [loading, setLoading] = useState(false); 
 
   useEffect(() => {
     const fetchData = async () => {
@@ -28,12 +24,11 @@ const Home = () => {
       try {
         const res = await api.get('/posts');
         setPosts(res.data);
-        setFilteredPosts(res.data); // Initially, show all posts
+        setFilteredPosts(res.data); 
       } catch (err) {
         console.log(err);
         setLoading(false);
       } finally {
-        // Reset loading state after the request is completed
         setLoading(false);
       }
     };
