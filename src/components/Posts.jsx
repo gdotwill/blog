@@ -7,9 +7,9 @@ const Posts = ({ posts, loading, searchTerm}) => {
     <div>
         <section className='container blog'>
         {loading ? (
-          <h1 className='text-center mt-10 text-3xl'>Loading records...</h1> 
+          <h1 className='text-center mt-10 text-3xl'>Loading blogs...</h1> 
         ) : posts.length === 0 && searchTerm ? (
-          <h1 className='text-center mt-10 text-3xl'>No records found for "{searchTerm}"</h1> 
+          <h1 className='text-center mt-10 text-3xl'>No blogs found for "{searchTerm}"</h1> 
         ) : (
           <div className='grid3 mt-8'>
             {posts.map((post) => (
