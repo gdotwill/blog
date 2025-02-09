@@ -6,8 +6,8 @@ import api from "../api/api";
 
 // Defining a functional component named Menu which takes a single prop named cat
 const Menu = ({ category }) => {
-  // Initializing posts state with an empty array using useState hook
   const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(false); 
 
   // useEffect hook is used to fetch posts related to the category
   useEffect(() => {
@@ -27,13 +27,20 @@ const Menu = ({ category }) => {
   return (
     <div className="menu">
       <h1>Other posts you may like</h1>
+      {
+        posts.length < 1 && (
+          <h1>Loading ...</h1>
+        )
+      }
       {posts.map((post) => (
         <div className="post" key={post.id}>
-          <img src={`../upload/${post.img}`} alt="post cover" />
+          <img src={post.img} alt="post cover" />
           <h2>{post.title}</h2>
           {/* Using Link component to navigate to the post */}
-          <Link className="link" to={`/posts/${post.id}`}>
-            <button>Read More</button>
+          <Link to={`/post/${post.id}`}>
+            <button
+              className="mt-5 lg:mt-0 border-2 border-blue-500 px-6 py-2 rounded-full text-blue-500 font-semibold hover:bg-blue-500 hover:text-white transition-all duration-300"
+            >Read More</button>
           </Link>
         </div>
       ))}
@@ -42,3 +49,4 @@ const Menu = ({ category }) => {
 };
 
 export default Menu;
+

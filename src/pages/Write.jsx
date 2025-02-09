@@ -22,6 +22,8 @@ const Write = () => {
   const [category, setCat] = useState('');
   const [image, setImage] = useState(null);
   const [error, setError] = useState({}); 
+  const [loading, setLoading] = useState(false); 
+  const [fileName, setFileName] = useState(''); // State to store the file name
 
   const validate = () => {
     let validationError = {};
@@ -57,12 +59,6 @@ const Write = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    // const token = localStorage.getItem('token');
-    // if (!token) {
-    //   setMessage('You must be logged in to post a blog.');
-    //   return;
-    // }
 
     if (!title || !description) {
       setError('Title and description are required.');
@@ -80,6 +76,8 @@ const Write = () => {
     formData.forEach((value, key) => {
       console.log(`${key}: ${value}`);
     });
+
+    setLoading(true);
   
     try {
       const response = await api.post('/posts', formData, 
@@ -102,7 +100,14 @@ const Write = () => {
       console.error(error);
       setError('Error creating post.');
       console.log("NOOO")
+    } finally {
+      // Reset loading state after the request is completed
+      setLoading(false);
     }
+  };
+
+  const triggerFileInput = () => {
+    document.getElementById('file').click(); // Trigger the hidden file input click
   };
 
   return (
@@ -119,8 +124,6 @@ const Write = () => {
               placeholder="Add title"
             />
             {error.title && <span style={{ color: 'red' }}>{error.title}</span>} {/* Display title error */}
-
-
             <textarea
               placeholder="Description"
               value={description}
@@ -129,8 +132,6 @@ const Write = () => {
               rows="10"
             />
             {error.description && <span style={{ color: 'red' }}>{error.description}</span>} {/* Display description error */}
-
-
           </div>
           <div className="menu">
             <div className="item mt-3">
@@ -171,27 +172,37 @@ const Write = () => {
                   <label htmlFor="food"> Food</label>
                 </div>
               </div>
-              <div className="photo rounded-full">
-                <input
+    
+              <input       
+                type="file"
+                id="file"
+                name=""
+                accept="image/*"
+                onChange={(e) => setImage(e.target.files[0])}
+              />
+              {fileName && (
+                <div>
+                  <strong>Selected File: </strong> {fileName}
+                </div>
+              )}
+              {error.image && <span style={{ color: 'red' }}>{error.image}</span>} {/* Display image error */}
+
+              {/* <label className="file" htmlFor="file">
+                <FaCamera className="icon" size={30} />
+              </label> */}
               
-                  type="file"
-                  id="file"
-                  name=""
-                  accept="image/*"
-                  onChange={(e) => setImage(e.target.files[0])}
-                />
-                {error.image && <span style={{ color: 'red' }}>{error.image}</span>} {/* Display image error */}
 
-                <label className="file" htmlFor="file">
-                  <FaCamera className="icon" size={30} />
-                </label>
-              </div>
+              {loading ? (
+                <div className="loader"></div>
+              ) : (
+                
+                <button 
+                  type="submit"
+                  className="mt-5 lg:mt-0 border-2 border-blue-500 px-6 py-2 rounded-full text-blue-500 font-semibold hover:bg-blue-500 hover:text-white transition-all duration-300" 
+                > Publish
+                </button>
+              )}
 
-              <button 
-                type="submit"
-                className="mt-5 lg:mt-0 border-2 border-blue-500 px-6 py-2 rounded-full text-blue-500 font-semibold hover:bg-blue-500 hover:text-white transition-all duration-300" 
-              > Publish
-              </button>
             </div>
         </div>  
       </form>

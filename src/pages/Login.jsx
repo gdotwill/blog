@@ -20,11 +20,9 @@ const Login = () => {
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-
   const [message, setMessage] = useState('');
-
-  const [loginError, setLoginError] = useState(''); // Track login error (invalid credentials)
-
+  const [loginError, setLoginError] = useState(''); 
+  const [loading, setLoading] = useState(false); 
 
   const navigate = useNavigate();
 
@@ -71,6 +69,9 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    setLoading(true);
+
     try {
       // const response = await api.post('/auth/login', { username, password }, { withCredentials: true });
       // localStorage.setItem('token', response.data.token);
@@ -100,10 +101,12 @@ const Login = () => {
     } catch (error) {
       setLoginError('Invalid username or password, please try again.');
       console.error('Login failed:', error.response?.data || error.message);
+    } finally {
+      // Reset loading state after the request is completed
+      setLoading(false);
     }
   };
 
-  // Render the login form with input fields for username and password and a button to submit the form
   return (
     <div className="py-2">
         <div className="logo login-wrapper">
@@ -128,7 +131,6 @@ const Login = () => {
                 id="username"
                 name="username"
                 placeholder="Enter username"
-                //onChange={handleChange}
                 onChange={(e) => setUsername(e.target.value)}
                 className="placeholder:text-[#959ead] text-dark-hard mt-3 rounded-lg px-5 py-4 font-semibold block outline-none border border-[#c3cad9]"
               />
@@ -139,7 +141,6 @@ const Login = () => {
               <label
                 htmlFor="password"
                 className="text-[#5a7184] font-semibold block"
-                //onChange={handleChange}   
               >
                 Password
               </label>
@@ -154,23 +155,21 @@ const Login = () => {
               {error.password && <span style={{ color: 'red' }}>{error.password}</span>} {/* Display image error */}
 
             </div>
-            {/* <Link
-              to="/forget-password"
-              className="text-sm font-semibold text-primary"
-            >
-              Forgot password?
-            </Link> */}
 
-            {/* Show login error message if credentials do not match */}
             {loginError && <span style={{ color: 'red', display: 'block' }}>{loginError}</span>}
 
-            <button
+            {loading ? (
+                <div className="loader"></div>
+              ) : (
+                
+                <button
               type="submit"
               className="bg-primary text-white font-bold text-lg py-4 px-8 w-full rounded-lg my-6 disabled:opacity-70 disabled:cursor-not-allowed"
               
             >
               Sign In
             </button>
+            )}
 
             <p className="text-sm font-semibold text-[#5a7184]">
               Do not have an account?{" "}
