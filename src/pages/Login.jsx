@@ -89,7 +89,7 @@ const Login = () => {
       localStorage.setItem('token', response.data.token);
 
       if (response.data.success) {
-        alert('Login successful');
+        // alert('Login successful');
         // Redirect user to another page after successful login, if necessary
       } else {
         setLoginError('Invalid username or password'); // Set error message if credentials don't match

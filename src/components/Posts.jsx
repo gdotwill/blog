@@ -1,18 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { AiOutlineTags, AiOutlineClockCircle, AiOutlineComment, AiOutlineShareAlt } from "react-icons/ai"
 import { Link, useLocation } from "react-router-dom";
 
-const Posts = ({ posts}) => {
+const Posts = ({ posts, setLoading, loading, searchTerm}) => {
   return (
     <div>
         <section className='container blog'>
-          {
-            posts.length < 1 ? (
-              <div className='mt-16 text-center'>
-                <h1 className='text-3xl'>Loading posts...</h1>
-              </div>     
-            ) : (
-              <div className='grid3 mt-8'>
+        {loading ? (
+          <h1 className='text-center mt-10 text-3xl'>Loading records...</h1> 
+        ) : posts.length === 0 && searchTerm ? (
+          <h1 className='text-center mt-10 text-3xl'>No records found for "{searchTerm}"</h1> 
+        ) : (
+          posts.map((record) => (
+            <div className='grid3 mt-8'>
               {posts.map((post) => (
                 <div className='box boxItems' key={post.id}>
                   <div className='img'>
@@ -38,12 +38,9 @@ const Posts = ({ posts}) => {
                 </div>
               ))}
             </div>
-
-            )
-          }
-
+          ))
+        )}
       </section>
-      
     </div>
   )
 }

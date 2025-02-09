@@ -19,15 +19,22 @@ const Home = () => {
 
   const [searchTerm, setSearchTerm] = useState(''); // New state to store the search term
 
+  const [loading, setLoading] = useState(false); // Loading state
+
 
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true);
       try {
         const res = await api.get('/posts');
         setPosts(res.data);
         setFilteredPosts(res.data); // Initially, show all posts
       } catch (err) {
         console.log(err);
+        setLoading(false);
+      } finally {
+        // Reset loading state after the request is completed
+        setLoading(false);
       }
     };
     fetchData();
@@ -77,7 +84,11 @@ const Home = () => {
         selectedCategory={selectedCategory}
         setSelectedCategory={handleCategoryChange} 
       />
-      <Posts posts={filteredPosts} />
+      <Posts 
+        loading={loading} 
+        setLoading={setLoading} 
+        posts={filteredPosts} 
+        searchTerm={searchTerm}/>
     </>
   );
 };
